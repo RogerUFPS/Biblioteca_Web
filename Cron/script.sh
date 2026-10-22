@@ -12,6 +12,8 @@ if ! http_status="$(
     curl \
         --silent \
         --show-error \
+        --connect-timeout 5 \
+        --max-time 60 \
         --output "$response_file" \
         --write-out '%{http_code}' \
         --request POST \

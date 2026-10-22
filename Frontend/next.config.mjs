@@ -9,7 +9,8 @@ const nextConfig = {
   skipTrailingSlashRedirect: true,
   async rewrites() {
     // Normaliza para evitar barras duplicadas si la variable trae / al final
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL
+    const apiUrl = (process.env.BACKEND_INTERNAL_URL || process.env.NEXT_PUBLIC_API_URL)
+      ?.replace(/\/+$/, "");
     const modules = ["accounts", "audit", "catalog", "harvesting", "journals", "platforms"];
 
     return modules.flatMap((module) => [

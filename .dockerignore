@@ -1,8 +1,12 @@
 Backend_Service/.env
 **/.git
+**/.env
+**/.env.*
+!**/.env.example
 **/__pycache__
 **/*.py[cod]
 **/*.sqlite3
 **/.wrangler
 **/.venv
 **/node_modules
+**/.next
