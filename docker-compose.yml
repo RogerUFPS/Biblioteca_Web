@@ -29,5 +29,10 @@ services:
     build: ./Cron
     env_file: ./Cron/.env
 
+  frontend:
+    <<: *service
+    build: ./Frontend
+    env_file: ./Frontend/.env
+
 volumes:
   rabbitmq_data:
