@@ -1,8 +1,9 @@
 import { notifySessionExpired, shouldSkipSessionExpiredAlert } from "@/shared/utils/sessionExpiration";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
 const isBrowser = typeof window !== "undefined";
+const API_BASE_URL = isBrowser
+  ? process.env.NEXT_PUBLIC_API_URL
+  : process.env.BACKEND_INTERNAL_URL || process.env.NEXT_PUBLIC_API_URL;
 
 /**
  * Read csrftoken from document.cookie (browser-only).

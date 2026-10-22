@@ -3,7 +3,11 @@ import { cookies, headers } from "next/headers";
 import AccountsProvider from "@/shared/components/AccountsProvider";
 import HarvestingProvider from "@/features/admin/harvesting/components/HarvestingProvider";
 
-const API_URL = (process.env.NEXT_PUBLIC_API_URL || "https://repositorio-biblioteca-backend.onrender.com").replace(/\/+$/, "");
+const API_URL = (
+  process.env.BACKEND_INTERNAL_URL
+  || process.env.NEXT_PUBLIC_API_URL
+  || "https://repositorio-biblioteca-backend.onrender.com"
+).replace(/\/+$/, "");
 const ALLOWED_ACCOUNT_MUTATIONS = [
   ["POST", /^presets\/$/],
   ["PATCH", /^presets\/\d+\/$/],

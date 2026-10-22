@@ -1,6 +1,7 @@
 import { notifySessionExpired, shouldSkipSessionExpiredAlert } from "@/shared/utils/sessionExpiration";
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "");
+const publicApiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, "");
+const internalApiBaseUrl = process.env.BACKEND_INTERNAL_URL?.replace(/\/+$/, "");
 
 export class PublicApiError extends Error {
   constructor(message, status) {
@@ -13,6 +14,10 @@ export class PublicApiError extends Error {
 const requestTimeoutMs = 10_000;
 
 export async function fetchPublicApi(path, params = {}, signal) {
+  const apiBaseUrl = typeof window === "undefined"
+    ? internalApiBaseUrl || publicApiBaseUrl
+    : publicApiBaseUrl;
+
   if (!apiBaseUrl) {
     throw new PublicApiError("Configura NEXT_PUBLIC_API_URL para conectar con la API pública.");
   }
