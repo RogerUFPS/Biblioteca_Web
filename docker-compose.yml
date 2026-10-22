@@ -19,6 +19,9 @@ services:
     <<: *service
     build: ./RabbitMQ
     env_file: ./RabbitMQ/.env
+    cap_add:
+      - SETGID
+      - SETUID
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
@@ -39,11 +42,6 @@ services:
     env_file: ./Backend/.env
     command: ["celery", "-A", "project", "worker",
               "--loglevel=INFO", "--queues=harvesting", "--concurrency=2"]
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      backend:
-        condition: service_healthy
 
   cron:
     <<: *service
@@ -53,9 +51,6 @@ services:
     cap_add:
       - SETUID
       - SETGID
-    depends_on:
-      backend:
-        condition: service_healthy
 
   frontend:
     <<: *service
