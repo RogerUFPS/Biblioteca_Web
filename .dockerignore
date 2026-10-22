@@ -1,0 +1,8 @@
+Backend_Service/.env
+**/.git
+**/__pycache__
+**/*.py[cod]
+**/*.sqlite3
+**/.wrangler
+**/.venv
+**/node_modules

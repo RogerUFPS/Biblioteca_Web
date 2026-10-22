@@ -1,0 +1,33 @@
+x-service: &service
+  network_mode: host
+  restart: unless-stopped
+
+services:
+  rabbitmq:
+    <<: *service
+    build: ./RabbitMQ
+    env_file: ./RabbitMQ/.env
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  backend:
+    <<: *service
+    build: ./Backend
+    image: harvest-backend
+    env_file: ./Backend/.env
+
+  worker:
+    <<: *service
+    build: ./Backend
+    image: harvest-backend
+    env_file: ./Backend/.env
+    command: ["celery", "-A", "project", "worker",
+              "--loglevel=INFO", "--queues=harvesting", "--concurrency=2"]
+
+  cron:
+    <<: *service
+    build: ./Cron
+    env_file: ./Cron/.env
+
+volumes:
+  rabbitmq_data:

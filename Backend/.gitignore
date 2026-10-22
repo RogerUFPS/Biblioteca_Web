@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+db.sqlite3
+.venv/
+context.md
+pyrefly.toml
+docs/BITACORA_PLATFORMS.md
+*.sqlite3
+cloudflare/
