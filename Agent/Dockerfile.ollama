@@ -1,0 +1,13 @@
+FROM ollama/ollama:latest
+
+EXPOSE 11434
+
+ENV OLLAMA_HOST="0.0.0.0"
+
+RUN set -exu \
+    && ollama serve & \
+    && sleep 5 \
+    && ollama pull qwen3:8b \
+    && ollama pull glm4:9b \
+    && ollama pull llama3.2:8b \
+    && pkill ollama
